@@ -94,7 +94,9 @@ def main():
     base_branch = os.environ.get("BASE_BRANCH", "main")
 
     issue = get_issue(owner, repo, issue_number, token)
-    branch = f"agent/issue-{issue_number}"
+    run_id = os.environ.get("GITHUB_RUN_ID", "local")
+    branch = f"agent/issue-{issue_number}-{run_id}"
+
     create_branch(branch)
 
     apply_demo_change(issue)
